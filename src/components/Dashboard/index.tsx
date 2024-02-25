@@ -2,7 +2,11 @@ import { useState } from "react";
 import { RegisterVolunteerModal } from "../RegisterVolunteerModal";
 import { RegisterAnimalModal } from "../RegisterAnimalModal";
 import { RegisterResourceModal } from "../RegisterResourceModal";
-import "./styles.css"
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { FaDog } from "react-icons/fa";
+import { MdMedicationLiquid } from "react-icons/md";
+import "./styles.css";
+import { ResourceTable } from "../ResourceTable";
 
 export const Dashboard = () => {
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
@@ -26,25 +30,33 @@ export const Dashboard = () => {
     setIsResourceModalOpen(false);
   };
 
-  return ( 
+  return (
     <>
-      <nav className="wrapper navbar">
+      <nav className="wrapper navbar border-1px">
         <div className="row">
           <div className="cell">
-            <a onClick={handleOpenVolunteerModal}>Voluntario</a>
+            <div className="title">
+              <h1>CASOPRAP - Cadastro SOPRAP</h1>
+            </div>
           </div>
         </div>
         <div className="row">
           <div className="cell">
-            <a onClick={handleOpenAnimalModal}>Animal</a>
+            <button onClick={handleOpenVolunteerModal}><IoPersonCircleOutline size={24} className="icon"/>Voluntario</button>
           </div>
         </div>
         <div className="row">
           <div className="cell">
-            <a onClick={handleOpenResourceModal}>Recursos</a>
+            <button onClick={handleOpenAnimalModal}><FaDog size={24} className="icon"/>Animal</button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="cell">
+            <button onClick={handleOpenResourceModal}><MdMedicationLiquid size={24} className="icon"/>Recursos</button>
           </div>
         </div>
       </nav>
+      <ResourceTable />
       <RegisterVolunteerModal
         isOpen={isVolunteerModalOpen}
         onRequestClose={handleCloseModal}

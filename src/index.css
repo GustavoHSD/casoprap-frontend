@@ -3,58 +3,55 @@
 }
 
 :root {
-  --primary-color: #c86c19;
-  --secondary-color: #ecaf00;
-
-  /* Calculate complementary color */
-  --complementary-color: #19a0c8; /* Example: calculated manually or using a tool */
-
-  /* Calculate darkened and lightened versions of primary color */
-  --darkened-primary-color: #a45912; /* Example: Use a tool or adjust manually */
-  --lightened-primary-color: #e08830; /* Example: Use a tool or adjust manually */
-
-  /* Neutral color */
-  --neutral-color: #f5f5f5; /* Example: A light gray color */
-
-  --border-color: #dddddd; /* Example: Light gray color for borders */
+  --primary-color: #f7f7f7;
+  --secondary-color: #eff1f3;
+  --border-color: #d2d7dd;
+  --complementary-color: #f58870;
+  --neutral-color: #0966d3;
+  --font-color: #545d67;
+  --font-color-dark: #23282e;
+  --highlight-color: #e3e6ea;
 }
 
 html,
 body {
   width: 100%;
   height: 100%;
-  display: flex;
   margin: 0;
   padding: 0;
   background-color: var(--primary-color);
-  font-family: "Roboto", sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--font-color-dark);
 }
 
 h1 {
   padding: 0;
   margin: 0;
-}
-
-button {
-  width: 60px;
-  height: 40px;
-  margin: 10px auto;
+  gap: 0;
+  border: 0;
 }
 
 input {
-    outline: none;
-    border: 1px solid var(--primary-color);
+  outline-color: var(--neutral-color);
+  border: 1px solid var(--border-color);
+  height: 40px;
+  color: var(--font-color-dark);
+}
+
+button {
+  outline: none;
 }
 
 .global {
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
   background-color: var(--primary-color);
+  display: flex;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .row {
@@ -68,14 +65,7 @@ input {
 }
 .title {
   width: 100%;
-  height: 60px;
   text-align: center;
-  margin: 10px auto;
-  h1,
-  p {
-    margin: 0;
-    padding: 0;
-  }
 }
 
 .form {
@@ -84,11 +74,6 @@ input {
 }
 
 .close-button {
-  height: unset;
-  width: unset;
-  position: fixed;
-  top: 10%;
-  left: 85%;
   background-color: transparent;
   border: transparent;
   margin: 0;
@@ -98,6 +83,15 @@ input {
 
 .submit-button {
   width: 100%;
+  height: 40px;
+  margin: 10px auto;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  background-color: var(--neutral-color);
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  outline: none;
 }
 
 .input-field {
@@ -106,13 +100,51 @@ input {
   margin: 10px auto;
   display: inline-block;
   input {
-
-background-color: var(--darkened-primary-color);
+    background-color: var(--darkened-primary-color);
     width: 100%;
     padding: 5px;
   }
 }
 
+.table {
+  width: 70vw;
+  border-collapse: collapse;
+  border: 1px solid var(--border-color);
+  border-collapse: collapse;
+  border-radius: 8px;
+  border-style: hidden;
+  box-shadow: 0 0 0 1px var(--border-color);
+  overflow: hidden;
+
+  th,
+  td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+  } 
+
+  th {
+    background-color: var(--secondary-color);
+  }
+
+  tr:hover {
+    background-color: var(--secondary-color);
+  }
+}
+
 .max-height {
   height: 100%;
+}
+
+.max-width {
+  width: 100%;
+}
+
+.border-1px {
+  border: 1px solid var(--border-color);
+}
+
+.align-center {
+  justify-content: center;
+  align-items: center;
 }

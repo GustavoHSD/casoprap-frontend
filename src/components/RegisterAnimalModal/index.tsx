@@ -3,7 +3,14 @@ import { FormEvent, useEffect, useState } from "react";
 import { api_conn } from "../../api";
 import { IoCloseSharp } from "react-icons/io5";
 import { CustomModalStyles } from "../../ModalStyles";
+import Select from "react-select";
 import "./styles.css";
+import { Volunteer } from "../../types/volunteer";
+
+type VolunteerOption = {
+  value: string;
+  label: string;
+};
 
 type RegisterAnimalModalProps = {
   isOpen: boolean;
@@ -20,13 +27,23 @@ export const RegisterAnimalModal = ({
   const [age, setAge] = useState<string>("");
   const [rescueLocation, setRescueLocation] = useState<string>("");
   const [volunteerId, setVolunteerId] = useState<string>("");
+  const [volunteerOptions, setVolunteerOptions] = useState<VolunteerOption[]>(
+    []
+  );
 
   useEffect(() => {
     const fetchVolunteers = async () => {
       const response = await api_conn.get("/volunteer");
       if (response.status === 200) {
+        setVolunteerOptions(
+          response.data.map((volunteer: Volunteer) => ({
+            value: volunteer.id,
+            label: volunteer.name + "/" + volunteer.cpf,
+          }))
+        );
       }
     };
+    fetchVolunteers();
   }, []);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -35,10 +52,10 @@ export const RegisterAnimalModal = ({
     const response = await api_conn.post("/animal", {
       name,
       race,
-      type,
-      age,
-      rescueLocation,
-      volunteerId,
+      a_type: type,
+      age: Number(age),
+      rescue_location: rescueLocation,
+      responsible_volunteer: volunteerId,
     });
     if (response.status === 200) {
       alert(`Animal ${response.data.name} cadastrado`);
@@ -51,12 +68,17 @@ export const RegisterAnimalModal = ({
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       style={CustomModalStyles}
+      shouldCloseOnEsc={false}
     >
       <div className="wrapper">
-        <form onSubmit={handleSubmit} className="form">
-          <button onClick={onRequestClose} className="close-button">
-            <IoCloseSharp size={24} />
-          </button>
+        <form className="form">
+          <div className="row">
+            <div className="cell">
+              <button onClick={onRequestClose} className="close-button">
+                <IoCloseSharp size={24} />
+              </button>
+            </div>
+          </div>
           <div className="row">
             <div className="cell">
               <h1 className="title">Cadastrar Animal</h1>
@@ -119,8 +141,11 @@ export const RegisterAnimalModal = ({
                 Idade do animal
                 <input
                   value={age}
+                  type="text"
+                  inputMode="numeric"
                   onChange={(e) => setAge(e.target.value)}
                   required
+                  pattern="[0-9]{2}"
                 />
               </div>
             </div>
@@ -140,16 +165,16 @@ export const RegisterAnimalModal = ({
           <div className="row">
             <div className="cell">
               <div className="input-field">
-                Local de resgate do animal
-                <input
-                  value={volunteerId}
-                  onChange={(e) => setVolunteerId(e.target.value)}
+                Voluntario Responsavel
+                <Select
                   required
+                  options={volunteerOptions}
+                  onChange={(selected) => setVolunteerId(selected?.value ?? "")}
                 />
               </div>
             </div>
           </div>
-          <button className="submit-button" type="submit">
+          <button className="submit-button" onClick={handleSubmit}>
             Cadastrar animal
           </button>
         </form>
