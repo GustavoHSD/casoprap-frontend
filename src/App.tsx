@@ -1,10 +1,11 @@
-import "./App.css";
-import { NavBar } from "./components/NavBar";
+import { Dashboard } from "./components/Dashboard";
+import Modal from "react-modal";
 
+Modal.setAppElement("#root");
 function App() {
   return (
     <>
-      <NavBar />
+      <Dashboard />
     </>
   );
 }

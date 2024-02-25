@@ -2,8 +2,9 @@ import "react";
 import Modal from "react-modal";
 import { FormEvent, useState } from "react";
 import { api_conn } from "../../api";
-import styles from "./styles.module.css";
 import { IoCloseSharp } from "react-icons/io5";
+import "./styles.css";
+import { CustomModalStyles } from "../../ModalStyles";
 
 type RegisterVolunteerModalProps = {
   isOpen: boolean;
@@ -14,7 +15,6 @@ export const RegisterVolunteerModal = ({
   isOpen,
   onRequestClose,
 }: RegisterVolunteerModalProps) => {
-  api_conn;
   const [name, setName] = useState<string>("");
   const [cpf, setCpf] = useState<string>("");
 
@@ -27,52 +27,49 @@ export const RegisterVolunteerModal = ({
       onRequestClose();
     }
   };
-
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      overlayClassName="react-modal-overlay"
-      className="wrapper"
-    >
-      <form onSubmit={handleSubmit}>
-        <button onClick={onRequestClose} className={styles.closeButton}>
-          <IoCloseSharp size={24} />
-        </button>
-        <div className="row">
-          <div className="cell">
-            <h1 className="title">Adicionar Voluntario</h1>
+    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={CustomModalStyles}>
+      <div className="wrapper">
+        <form onSubmit={handleSubmit} className="form">
+          <button onClick={onRequestClose} className="close-button">
+            <IoCloseSharp size={24} />
+          </button>
+          <div className="row">
+            <div className="cell">
+              <div className="title">
+                <h1>Adicionar Voluntario</h1>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="row">
-          <div className="cell">
-            <label className="input-field">
-              Nome do voluntario
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </label>
+          <div className="row">
+            <div className="cell">
+              <label className="input-field">
+                Nome do voluntario
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </label>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="cell">
-            <label className="input-field">
-              Cpf do voluntario
-              <input
-                value={cpf}
-                onChange={(e) => setCpf(e.target.value)}
-                required
-              />
-            </label>
+          <div className="row">
+            <div className="cell">
+              <label className="input-field">
+                Cpf do voluntario
+                <input
+                  value={cpf}
+                  onChange={(e) => setCpf(e.target.value)}
+                  required
+                />
+              </label>
+            </div>
           </div>
-        </div>
-        <button className={styles.button} type="submit">
-          Cadastrar voluntario
-        </button>
-      </form>
+          <button className="submit-button" type="submit">
+            Cadastrar voluntario
+          </button>
+        </form>
+      </div>
     </Modal>
   );
 };
