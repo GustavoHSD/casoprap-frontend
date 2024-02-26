@@ -1,20 +1,19 @@
 .navbar {
   height: 100%;
   background-color: var(--secondary-color);
-  width: 200px;
   align-items: center;
   .row {
     width: 100%;
     text-align: center;
-    border-radius: 4px;
     justify-content: center;
   }
-  .selected-border {
-    border-right: 1px solid var(--complementary-color);
+  .selected {
+    border-right: 2px solid var(--complementary-color);
   }
   button {
     width: 90%;
     height: 100%;
+    border-radius: 4px;
     border: none;
     padding: 20px;
     margin: 0 auto;
@@ -31,4 +30,8 @@
   .icon {
     margin: 0 5px;
   }
+}
+
+.title-margin {
+    margin: 40px auto;
 }

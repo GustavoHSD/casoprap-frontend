@@ -65,7 +65,7 @@ export const RegisterResourceModal = ({
       <form onSubmit={handleSubmit} className="form">
         <div className="row">
           <div className="cell">
-            <button onClick={onRequestClose} className="close-button">
+            <button onClick={onRequestClose} className="button">
               <IoCloseSharp size={24} />
             </button>
           </div>

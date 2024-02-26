@@ -7,11 +7,14 @@ export const CustomModalStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     backgroundColor: "var(--secondary-color)",
-    border: "1px solid black",
+    border: "1px solid var(--border-color)",
     borderRadius: "5px",
+    zIndex: "1000",
   },
   overlay: {
     backgroundColor: "transparent",
     backdropFilter: "blur(5px)",
+    zIndex: "1000",
+    overflowY: "auto",
   },
 };

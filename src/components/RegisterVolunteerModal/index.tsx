@@ -31,7 +31,7 @@ export const RegisterVolunteerModal = ({
     <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={CustomModalStyles}>
       <div className="wrapper">
         <form onSubmit={handleSubmit} className="form">
-          <button onClick={onRequestClose} className="close-button">
+          <button onClick={onRequestClose} className="button">
             <IoCloseSharp size={24} />
           </button>
           <div className="row">

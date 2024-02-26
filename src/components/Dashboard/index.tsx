@@ -7,13 +7,14 @@ import { FaDog } from "react-icons/fa";
 import { MdMedicationLiquid } from "react-icons/md";
 import "./styles.css";
 import { ResourceTable } from "../ResourceTable";
+import { AnimalTable } from "../AnimalTable";
+import { VolunteerTable } from "../VolunteerTable";
 
 export const Dashboard = () => {
   const [isVolunteerModalOpen, setIsVolunteerModalOpen] = useState(false);
-
   const [isAnimalModalOpen, setIsAnimalModalOpen] = useState(false);
-
   const [isResourceModalOpen, setIsResourceModalOpen] = useState(false);
+  const [selectedTable, setSelectedTable] = useState("volunteer");
 
   const handleOpenVolunteerModal = () => {
     setIsVolunteerModalOpen(true);
@@ -35,28 +36,45 @@ export const Dashboard = () => {
       <nav className="wrapper navbar border-1px">
         <div className="row">
           <div className="cell">
-            <div className="title">
+            <div className="title mg-20px">
               <h1>CASOPRAP - Cadastro SOPRAP</h1>
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className={selectedTable === 'volunteer' ? 'row selected' : 'row'}>
           <div className="cell">
-            <button onClick={handleOpenVolunteerModal}><IoPersonCircleOutline size={24} className="icon"/>Voluntario</button>
+            <button onClick={() => setSelectedTable("volunteer")}>
+              <IoPersonCircleOutline size={24} className="icon" />
+              Voluntario
+            </button>
           </div>
         </div>
-        <div className="row">
+        <div className={selectedTable === 'animal' ? 'row selected' : 'row'}>
           <div className="cell">
-            <button onClick={handleOpenAnimalModal}><FaDog size={24} className="icon"/>Animal</button>
+            <button onClick={() => setSelectedTable("animal")}>
+              <FaDog size={24} className="icon" />
+              Animal
+            </button>
           </div>
         </div>
-        <div className="row">
+        <div className={selectedTable === 'resource' ? 'row selected' : 'row'}>
           <div className="cell">
-            <button onClick={handleOpenResourceModal}><MdMedicationLiquid size={24} className="icon"/>Recursos</button>
+            <button onClick={() => setSelectedTable("resource")}>
+              <MdMedicationLiquid size={24} className="icon" />
+              Recursos
+            </button>
           </div>
         </div>
       </nav>
-      <ResourceTable />
+
+      {selectedTable === "volunteer" ? (
+        <VolunteerTable isModalOpen={isVolunteerModalOpen} handleOpenModal={handleOpenVolunteerModal} />
+      ) : selectedTable === "animal" ? (
+        <AnimalTable isModalOpen={isAnimalModalOpen} handleOpenModal={handleOpenAnimalModal} />
+      ) : selectedTable === "resource" ? (
+        <ResourceTable isModalOpen={isResourceModalOpen} handleOpenModal={handleOpenResourceModal} />
+      ) : null}
+
       <RegisterVolunteerModal
         isOpen={isVolunteerModalOpen}
         onRequestClose={handleCloseModal}
